@@ -9,6 +9,7 @@ def gelu(x):
 
 
 def softmax(x):
+    """Get normalized probabilities from logits. Subtracting max value before exponential avoids numerical instability."""
     exp_x = np.exp(x - np.max(x, axis=-1, keepdims=True))
     return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
 
@@ -119,9 +120,7 @@ def generate(inputs, params, n_head, n_tokens_to_generate, encoder=None):
         IGEN_PRINT_MAX = 5
         if igen < IGEN_PRINT_MAX:
             top_indices = np.argsort(logits[-1])[-TOP:][::-1]
-            max_logit = np.max(logits[-1])                  # Numberically stable softmax
-            exp_logits = np.exp(logits[-1] - max_logit)     # Numberically stable softmax
-            probabilities = exp_logits / np.sum(exp_logits) # Numberically stable softmax
+            probabilities = softmax(logits[-1])             # Numberically stable softmax
             print()
             print(f"Top {TOP} next tokens:")
             for i, idx in enumerate(top_indices):
