@@ -59,7 +59,7 @@ python gpt2.py \
 
 ## Daniele's Fork
 
-My version add extreme verbosity to the code, to make it easier to understand it numerical operations.
+My version adds extreme verbosity to the code, to make it easier to understand its numerical operations.
 
 ```bash
 python gpt2_verbose.py "Alan Turing theorized that computers would one day become"
