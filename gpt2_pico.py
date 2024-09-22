@@ -1,3 +1,5 @@
+"""Only-Code version of GPT-2-pico."""
+
 import numpy as np
 
 def gelu(x):

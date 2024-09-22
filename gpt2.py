@@ -1,3 +1,5 @@
+"""Commented version of GPT-2-pico."""
+
 import numpy as np
 
 
