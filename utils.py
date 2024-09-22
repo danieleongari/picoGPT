@@ -9,6 +9,24 @@ from tqdm import tqdm
 
 from encoder import get_encoder
 
+def print_dict_with_array_sizes(d, indent=0):
+    """For PRINT purposes only."""
+    for key, value in d.items():
+        if isinstance(value, dict):
+            print(' ' * indent + f"{key}:")
+            print_dict_with_array_sizes(value, indent + 2)
+        elif isinstance(value, list):
+            print(' ' * indent + f"{key}: [")
+            for item in value:
+                if isinstance(item, dict):
+                    print_dict_with_array_sizes(item, indent + 2)
+                else:
+                    print(' ' * (indent + 2) + str(item))
+            print(' ' * indent + "]")
+        elif isinstance(value, np.ndarray):
+            print(' ' * indent + f"{key}: array_shape{value.shape}")
+        else:
+            print(' ' * indent + f"{key}: {value}")
 
 def download_gpt2_files(model_size, model_dir):
     assert model_size in ["124M", "355M", "774M", "1558M"]
@@ -78,5 +96,9 @@ def load_encoder_hparams_and_params(model_size, models_dir):
     encoder = get_encoder(model_size, models_dir)
     hparams = json.load(open(os.path.join(model_dir, "hparams.json")))
     params = load_gpt2_params_from_tf_ckpt(tf_ckpt_path, hparams)
+
+    print(f"Loaded {model_size} model from {os.path.join(model_dir)}")
+    print("hyperparams:", hparams)
+    print(print_dict_with_array_sizes(params, indent=2))
 
     return encoder, hparams, params

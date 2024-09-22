@@ -56,3 +56,13 @@ python gpt2.py \
     --model_size "124M" \
     --models_dir "models"
 ```
+
+## Daniele's Fork
+
+My version add extreme verbosity to the code, to make it easier to understand it numerical operations.
+
+```bash
+python gpt2_verbose.py "Alan Turing theorized that computers would one day become"
+```
+
+Search for `print` (case insensitive) in the code to find all the added verbosity.
