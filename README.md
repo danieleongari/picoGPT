@@ -66,3 +66,48 @@ python gpt2_verbose.py "Alan Turing theorized that computers would one day becom
 ```
 
 Search for `print` (case insensitive) in the code to find all the added verbosity.
+
+### Notes on the "smartness" of the model
+
+By default the model uses the 124M parameters GPT-2 model, with an output length of 20 tokens..
+PicoGPT is designed to get the most probable token at each step (equivalent to temperature=0), 
+therefore these examples are reproducible.
+
+Some examples (with the default settings):
+
+```text
+Input: Where is the Colosseum? 
+Output: \n The Colosseum is a small, rectangular building in the center of the city.
+
+Input: The Colosseum is in
+Output: the middle of a great deal of activity, and the city is a great place to live. The
+
+Input: The Colosseum is in the city of 
+    Top 3 next tokens:
+        #1. 350 (' P'):         -90.20802 ->  1.87%
+        #2. 309 (' T'):         -90.25656 ->  1.78%
+        #3. 327 (' C'):         -90.38332 ->  1.57%
+    Top 3 next tokens:
+        #1. 10961 ('arma'):     -92.18983 -> 11.35%
+        #2. 9160 ('isa'):       -92.36401 ->  9.53%
+        #3. 1142 ('ern'):       -93.27112 ->  3.85%    
+Output: Parma, Italy, where it is located. \n The Colosseum is a small
+
+Input: The famous Colosseum is in the city of
+    Top 3 next tokens:
+        #1. 10598 (' Rome'):    -90.74231 ->  2.40%
+        #2. 350 (' P'):         -90.75540 ->  2.37%
+        #3. 309 (' T'):         -90.90068 ->  2.05%
+Output: Rome, where the city is known as the "Colosseum of the Dead." The Col
+
+Input: The famous Colosseum is in the Italian city of
+    Top 3 next tokens:
+        #1. 5215 (' Gen'):      -84.74657 ->  5.91%
+        #2. 21574 (' Milan'):   -85.02224 ->  4.49%
+        #3. 10598 (' Rome'):    -85.15120 ->  3.94%
+Output: Genoa, where it is said to have been built by the Romans.
+
+
+Input: In which Italian city is the famous Colosseum located?
+Output: \n The Colosseum is a city of the famous Colosseum, which is
+```
