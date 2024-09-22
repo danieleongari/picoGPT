@@ -9,17 +9,24 @@ from tqdm import tqdm
 
 from encoder import get_encoder
 
-def print_dict_with_array_sizes(d, indent=0):
-    """For PRINT purposes only."""
+def print_dict_with_array_sizes(d, indent=0, list_has_similar_elements=True):
+    """For PRINT purposes only.
+    list_has_similar_elements=True means that all elements in the list are of the same type, so print just the first.
+    """
     for key, value in d.items():
         if isinstance(value, dict):
             print(' ' * indent + f"{key}:")
             print_dict_with_array_sizes(value, indent + 2)
         elif isinstance(value, list):
+            nvalues = len(value)
             print(' ' * indent + f"{key}: [")
             for item in value:
                 if isinstance(item, dict):
+                    print(' ' * (indent + 2) + "---")
                     print_dict_with_array_sizes(item, indent + 2)
+                    if list_has_similar_elements:
+                        print(' ' * (indent + 2) + f"--- (other {nvalues} items of same type and size)")
+                        break
                 else:
                     print(' ' * (indent + 2) + str(item))
             print(' ' * indent + "]")
@@ -27,6 +34,7 @@ def print_dict_with_array_sizes(d, indent=0):
             print(' ' * indent + f"{key}: array_shape{value.shape}")
         else:
             print(' ' * indent + f"{key}: {value}")
+
 
 def download_gpt2_files(model_size, model_dir):
     assert model_size in ["124M", "355M", "774M", "1558M"]
