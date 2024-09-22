@@ -69,8 +69,9 @@ Search for `print` (case insensitive) in the code to find all the added verbosit
 
 ### Notes on the "smartness" of the model
 
-By default the model uses the 124M parameters GPT-2 model, with an output length of 20 tokens..
-PicoGPT is designed to get the most probable token at each step (equivalent to temperature=0), 
+By default the model uses the 124M parameters [GPT-2 model](https://github.com/openai/gpt-2),
+with an output length of 20 tokens.
+PicoGPT is designed to get the most probable token at each step (equivalent to temperature=0),
 therefore these examples are reproducible.
 
 Some examples (with the default settings):

@@ -1,7 +1,6 @@
 """Commented version of GPT-2-pico, with verbose output. (by Daniele)
 Search for "print" and "PRINT" to see the changes.
 """
-
 import numpy as np
 
 
@@ -137,7 +136,22 @@ def generate(inputs, params, n_head, n_tokens_to_generate, encoder=None):
     return inputs[len(inputs) - n_tokens_to_generate :]  # only return generated ids
 
 
-def main(prompt: str, n_tokens_to_generate: int = 20, model_size: str = "124M", models_dir: str = "models"):
+def main(
+        prompt: str, 
+        n_tokens_to_generate: int = 20,
+        model_size: str = "124M",
+        models_dir: str = "models"
+        ):
+    
+    """
+    Generate text using GPT-2-pico model.
+
+    Args:
+        prompt (str): Input text to generate from.
+        n_tokens_to_generate (int): Number of tokens to generate. Since <EOS> is not implemented, the model will simply stop after generating this many tokens. 
+        model_size (str): Model size to use. Options are "124M", "355M", "774M", "1558M". See https://openai.com/index/gpt-2-1-5b-release/.
+        models_dir (str): Directory where the model files will be downloaded and/or loaded from.
+    """
     from utils import load_encoder_hparams_and_params
 
     print()
@@ -177,6 +191,6 @@ def main(prompt: str, n_tokens_to_generate: int = 20, model_size: str = "124M", 
     print("<<<< End of Final Output")
 
 if __name__ == "__main__":
-    import fire
 
+    import fire
     fire.Fire(main)
