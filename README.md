@@ -67,6 +67,27 @@ python gpt2_verbose.py "Alan Turing theorized that computers would one day becom
 
 Search for `print` (case insensitive) in the code to find all the added verbosity.
 
+Also, more details are provided with the `--help`` flag.
+
+```bash
+python gpt2_verbose.py --help
+...
+FLAGS
+    -n, --n_tokens_to_generate=N_TOKENS_TO_GENERATE
+        Type: int
+        Default: 20
+        Number of tokens to generate. Since <EOS> is not implemented, the model will simply stop after generating this many tokens.
+    --model_size=MODEL_SIZE
+        Type: str
+        Default: '124M'
+        Model size to use. Options are "124M", "355M", "774M", "1558M". See https://openai.com/index/gpt-2-1-5b-release/.
+    --models_dir=MODELS_DIR
+        Type: str
+        Default: 'models'
+        Directory where the model files will be downloaded and/or loaded from.
+...
+```
+
 ### Notes on the "smartness" of the model
 
 By default the model uses the 124M parameters [GPT-2 model](https://github.com/openai/gpt-2),
@@ -112,3 +133,13 @@ Output: Genoa, where it is said to have been built by the Romans.
 Input: In which Italian city is the famous Colosseum located?
 Output: \n The Colosseum is a city of the famous Colosseum, which is
 ```
+
+Note that by using `--model-size 1558M` you get more accurate answers already with the shorter prompt... but not too much more accurate!
+
+```text
+python gpt2_verbose.py --model-size 1558M --n_tokens_to_generate=50 "Where is the Colosseum?"
+
+Output: The Colosseum is located in the heart of Rome, in the city's Piazza della Signoria. The Colosseum is the largest Roman amphitheater in the world, and is the largest Roman amphithe
+```
+
+(Piazza della Signoria is in Florence, not in Rome... uuups!)
